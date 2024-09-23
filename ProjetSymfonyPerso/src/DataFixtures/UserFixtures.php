@@ -37,8 +37,8 @@ class UserFixtures extends Fixture
 
     for ($i = 10; $i < 20; $i++){
         $user = new User();
-        $user->setEmail('admin'.$i.'@gmail.com');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setEmail('medic'.$i.'@gmail.com');
+        $user->setRoles(['ROLE_MEDIC']);
         $user->setPassword($this->passwordHasher->hashPassword(
             $user,
             'ExempleMdp'
