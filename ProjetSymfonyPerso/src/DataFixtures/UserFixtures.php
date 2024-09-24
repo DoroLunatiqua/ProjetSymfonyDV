@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Medecin;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -36,13 +37,14 @@ class UserFixtures extends Fixture
     
 
     for ($i = 10; $i < 20; $i++){
-        $user = new User();
+        $user = new Medecin();
         $user->setEmail('medic'.$i.'@gmail.com');
         $user->setRoles(['ROLE_MEDIC']);
         $user->setPassword($this->passwordHasher->hashPassword(
             $user,
             'ExempleMdp'
         ));
+        $user->setInami('jhfbgdjd');
         
         
         $user->setNom("nom".$i);
