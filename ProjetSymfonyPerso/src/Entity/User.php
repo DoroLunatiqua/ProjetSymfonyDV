@@ -18,12 +18,9 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  
 // ATTENTION!: format attributs PHP
 
-#[InheritanceType("SINGLE_TABLE")]
+#[InheritanceType("JOINED")]
 #[DiscriminatorColumn(name: "discr", type: "string")]
 #[DiscriminatorMap(["user" => "User", "medecin" => "Medecin", "patient" => "Patient"])]
-
-
-
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -52,11 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $prenom = null;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Medecin $medecin = null;
+    // #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    // private ?Medecin $medecin = null;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Patient $patient = null;
+    // #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    // private ?Patient $patient = null;
 
     public function getId(): ?int
     {

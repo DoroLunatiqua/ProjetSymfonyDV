@@ -2,12 +2,15 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Medecin;
 use App\Entity\Patient;
+use App\DataFixtures\MedecinFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class PatientFixtures extends Fixture
+class PatientFixtures extends Fixture implements DependentFixtureInterface
 {
     private $passwordHasher;
 
@@ -27,7 +30,7 @@ class PatientFixtures extends Fixture
             ));
             $user->setNom("nom".$i);
             $user->setPrenom("prenom".$i);
-            $user->setMedecin($this->getReference("medecin" . rand(10,19))); 
+            $user->setMedecinT($this->getReference("medecin{$i}"));
 
 
             $manager->persist ($user);
@@ -35,5 +38,11 @@ class PatientFixtures extends Fixture
 
 
         $manager->flush();
+
+    }
+
+    public function getDependencies()
+    {
+        return ([MedecinFixtures::class]);
     }
 }

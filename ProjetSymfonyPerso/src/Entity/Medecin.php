@@ -16,7 +16,7 @@ class Medecin extends User
     /**
      * @var Collection<int, Patient>
      */
-    #[ORM\OneToMany(targetEntity: Patient::class, mappedBy: 'medecin')]
+    #[ORM\OneToMany(targetEntity: Patient::class, mappedBy: 'medecinT')]
     private Collection $patients;
 
     public function __construct()
@@ -48,7 +48,7 @@ class Medecin extends User
     {
         if (!$this->patients->contains($patient)) {
             $this->patients->add($patient);
-            $patient->setMedecin($this);
+            $patient->setMedecinT($this);
         }
 
         return $this;
@@ -58,8 +58,8 @@ class Medecin extends User
     {
         if ($this->patients->removeElement($patient)) {
             // set the owning side to null (unless already changed)
-            if ($patient->getMedecin() === $this) {
-                $patient->setMedecin(null);
+            if ($patient->getMedecinT() === $this) {
+                $patient->setMedecinT(null);
             }
         }
 

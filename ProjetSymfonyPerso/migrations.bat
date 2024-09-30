@@ -9,4 +9,4 @@ symfony console make:migration --no-interaction
 @REM On synchronise avec la DB
 symfony console doctrine:migration:migrate --no-interaction
 @REM lancer les fixtures
-symfony console doctrine:fixtures:load 
+symfony console doctrine:fixtures:load --no-interaction

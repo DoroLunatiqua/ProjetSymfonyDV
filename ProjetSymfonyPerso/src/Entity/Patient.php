@@ -8,18 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PatientRepository::class)]
 class Patient extends User
 {
-    #[ORM\ManyToOne(inversedBy: 'patients')]
+    #[ORM\ManyToOne(targetEntity: Medecin::class, inversedBy: 'patients')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Medecin $medecin = null;
+    private ?Medecin $medecinT = null;
 
-    public function getMedecin(): ?Medecin
+    public function getMedecinT(): ?Medecin
     {
-        return $this->medecin;
+        return $this->medecinT;
     }
 
-    public function setMedecin(?Medecin $medecin): static
+    public function setMedecinT(?Medecin $medecin): static
     {
-        $this->medecin = $medecin;
+        $this->medecinT = $medecin;
 
         return $this;
     }

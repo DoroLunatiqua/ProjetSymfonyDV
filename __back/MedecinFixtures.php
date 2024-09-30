@@ -30,9 +30,7 @@ class MedecinFixtures extends Fixture
             $user->setInami('jhfbgdjd');
             $user->setNom("nom".$i);
             $user->setPrenom("prenom".$i);
-
             $manager->persist($user);
-            
             $this->addReference("medecin{$i}", $user);
     }
 
