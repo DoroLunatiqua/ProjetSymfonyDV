@@ -23,14 +23,14 @@ class PatientFixtures extends Fixture implements DependentFixtureInterface
     {
         for ($i = 0; $i < 10 ; $i++){
             $user = new Patient();
-            $user->setEmail ('user'.$i.'gmail.com');
+            $user->setEmail ('user'.$i.'@gmail.com');
             $user->setPassword($this->passwordHasher->hashPassword(
                 $user,
                 'ExempleMdp'
             ));
             $user->setNom("nom".$i);
             $user->setPrenom("prenom".$i);
-            $user->setRoles(['ROLE_MEDIC']);
+            $user->setRoles(['ROLE_PATIENT']);
             $user->setMedecinT($this->getReference("medecin{$i}"));
 
 
