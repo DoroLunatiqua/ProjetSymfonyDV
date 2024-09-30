@@ -1,0 +1,31 @@
+<html>
+<head>
+{# navigation pour toutes les pages #}
+
+    <nav>
+    {# liens sans connection #}
+    <a href="">Acceuil</a>
+    
+
+    {# liens pour le Medecin #}
+    {# {% if is_granted ('ROLE_MEDIC') %}
+    <a href="">Enregistrmenet Patient</a>
+    <a href="">Exercices</a>
+    <a href="">Listes Patients</a>
+    <a href="">Attribuer des Exercices</a>
+
+    {% endif %}
+
+     #}
+
+    {% if app.user %}
+        Connecté: {{ app.user.email}}
+        <a href="{{ path ('app_logout' )}}">Logout</a>
+    {% else %}
+            <a href="{{ path ('app_login' )}}">Connexion Medecin</a>
+    {% endif %}
+    
+    
+    </nav>
+</head>
+</html>

@@ -9,7 +9,28 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Bonjour sur le site d'exercice </h1>
+    <h1>Bienvenue sur le site d'exercice pour personnes aphasiques</h1>
+
+{% if is_granted ('ROLE_MEDIC') %}
+    <a href="">Enregistrement Patient</a>
+    <a href="">Exercices</a>
+    <a href="">Listes Patients</a> 
+    <a href="">Attribuer des Exercices</a>
+
+    {% elseif is_granted ('ROLE_PATIENT')%}
+    <h2> Bonjour je suis un patient</h2>
+        
+
+    {% else %}
+    <a href="{{ path ('app_login' )}}">Connexion Professionel</a>
+    <a href="{{ path ('app_login' )}}">Connexion Patient</a>
+        
+{% endif %}
+
+
+
+
+
 
 
 </div>

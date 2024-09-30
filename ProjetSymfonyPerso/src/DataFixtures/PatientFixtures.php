@@ -30,6 +30,7 @@ class PatientFixtures extends Fixture implements DependentFixtureInterface
             ));
             $user->setNom("nom".$i);
             $user->setPrenom("prenom".$i);
+            $user->setRoles(['ROLE_MEDIC']);
             $user->setMedecinT($this->getReference("medecin{$i}"));
 
 
