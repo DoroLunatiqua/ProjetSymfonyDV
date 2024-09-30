@@ -4,7 +4,7 @@
 
     <nav>
     {# liens sans connection #}
-    <a href="">Acceuil</a>
+    
     
 
     {# liens pour le Medecin #}
@@ -21,8 +21,8 @@
     {% if app.user %}
         Connecté: {{ app.user.email}}
         <a href="{{ path ('app_logout' )}}">Logout</a>
-    {% else %}
-            <a href="{{ path ('app_login' )}}">Connexion Medecin</a>
+    {# {% else %}
+            <a href="{{ path ('app_login' )}}">Connexion</a> #}
     {% endif %}
     
     
