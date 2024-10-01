@@ -32,9 +32,10 @@ class PatientFixtures extends Fixture implements DependentFixtureInterface
             $user->setPrenom("prenom".$i);
             $user->setRoles(['ROLE_PATIENT']);
             $user->setMedecinT($this->getReference("medecin{$i}"));
-
-
+            
+            
             $manager->persist ($user);
+            $this->addReference("patient$i", $user);
         }
 
 
