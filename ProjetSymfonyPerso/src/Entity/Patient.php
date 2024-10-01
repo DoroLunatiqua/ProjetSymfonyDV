@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Patient extends User
 {
     #[ORM\ManyToOne(targetEntity: Medecin::class, inversedBy: 'patients')]
-    #[ORM\JoinColumn(nullable: false)]
+    // pour résoudre fixtures, sinon remettre juste nullable: false
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Medecin $medecinT = null;
 
     /**
