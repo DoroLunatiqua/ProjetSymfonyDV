@@ -19,7 +19,7 @@ class EnregistrementPatientType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('roles')
+            // ->add('roles')
             ->add('password', PasswordType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)

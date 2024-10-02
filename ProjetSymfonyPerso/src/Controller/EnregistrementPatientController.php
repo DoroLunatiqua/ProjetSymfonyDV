@@ -2,55 +2,40 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Patient;
+use App\Form\EnregistrementPatientType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class EnregistrementPatientController extends AbstractController
 {
     #[Route('/enregistrement/patient', name: 'app_enregistrement_patient')]
-    public function index(): Response
+    public function index(Request $request, EntityManagerInterface $doctrine): Response
     {
+        $patient = new Patient();
+   $medecin = $this->getUser(); // Récupérer le médecin connecté
+
+    $form = $this->createForm(EnregistrementPatientType::class, $patient);
+       // entre parenthèse le premier param:class de ton formulaire ici: PatientType , deuxieme param l'objet qui recoit les données du formulaire
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $patient->setMedecinT($medecin);
+        $patient->setRoles(["ROLE_PATIENT"]);
+        $entityManager = $this->$doctrine->getManager();
+        $entityManager->persist($patient);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('patient_success'); // Redirection après succès
+    }
+
+
         return $this->render('enregistrement_patient/index.html.twig', [
-            'controller_name' => 'EnregistrementPatientController',
+            'form' => $form,
         ]);
     }
 }
 
-// // src/Controller/PatientController.php
-// namespace App\Controller;
-
-// use App\Entity\Patient;
-// use App\Form\PatientType;
-// use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-// use Symfony\Component\HttpFoundation\Request;
-// use Symfony\Component\HttpFoundation\Response;
-// use Symfony\Component\Routing\Annotation\Route;
-
-// class PatientController extends AbstractController
-// {
-//     /**
-//      * @Route("/patient/new", name="patient_new")
-//      */
-//     public function new(Request $request): Response
-//     {
-//         $patient = new Patient();
-//         $medecin = $this->getUser(); // Récupérer le médecin connecté
-
-//         $form = $this->createForm(PatientType::class, $patient);
-//         $form->handleRequest($request);
-
-//         if ($form->isSubmitted() && $form->isValid()) {
-//             $patient->setMedecin($medecin);
-//             $entityManager = $this->getDoctrine()->getManager();
-//             $entityManager->persist($patient);
-//             $entityManager->flush();
-
-//             return $this->redirectToRoute('patient_success'); // Redirection après succès
-//         }
-
-//         return $this->render('patient/new.html.twig', [
-//             'form' => $form->createView(),
-//         ]);
-//     }
-// }
