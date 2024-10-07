@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Patient;
 use App\Form\EnregistrementPatientType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EnregistrementPatientController extends AbstractController
 {
     #[Route('/enregistrement/patient', name: 'app_enregistrement_patient')]
-    public function index(Request $request, EntityManagerInterface $doctrine): Response
+    public function index(Request $request, ManagerRegistry $doctrine): Response
     {
         $patient = new Patient();
    $medecin = $this->getUser(); // Récupérer le médecin connecté
@@ -25,11 +26,11 @@ class EnregistrementPatientController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
         $patient->setMedecinT($medecin);
         $patient->setRoles(["ROLE_PATIENT"]);
-        $entityManager = $this->$doctrine->getManager();
+        $entityManager = $doctrine->getManager();
         $entityManager->persist($patient);
         $entityManager->flush();
 
-        return $this->redirectToRoute('patient_success'); // Redirection après succès
+        return $this->redirectToRoute('app_accueil'); // Redirection après succès
     }
 
 
