@@ -25,7 +25,7 @@ class EnregistrementPatientType extends AbstractType
             ->add('prenom', TextType::class)
             ->add('medecinT', EntityType::class, [
                 'class' => Medecin::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
             ->add('submit',SubmitType::class, ["label"=>"Enregistrer"])
         ;

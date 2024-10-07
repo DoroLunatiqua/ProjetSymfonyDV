@@ -12,7 +12,7 @@
     <h1>Bienvenue sur le site d'exercice pour personnes aphasiques</h1>
 
 {% if is_granted ('ROLE_MEDIC') %}
-    <a href="">Enregistrement Patient</a>
+    <a href="{{ path ('app_enregistrement_patient' )}}">Enregistrement Patient</a>
     <a href="">Exercices</a>
     <a href="">Listes Patients</a> 
     <a href="">Attribuer des Exercices</a>
