@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ListePatientsController!{% endblock %}
+{% block title %}Liste de vos Patients{% endblock %}
 
 {% block body %}
 <ul>
@@ -8,7 +8,9 @@
 <li>
 {{ patient.nom}}
 </li>
+
     
 {% endfor %}
 </ul>
+<a href="{{ path ('app_accueil' )}}">Acceuil</a>
 {% endblock %}
