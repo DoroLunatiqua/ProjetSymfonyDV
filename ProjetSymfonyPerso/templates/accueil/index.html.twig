@@ -14,6 +14,7 @@
 {% if is_granted ('ROLE_MEDIC') %}
     <a href="{{ path ('app_enregistrement_patient' )}}">Enregistrement Patient</a>
     <a href="">Exercices</a>
+    <a href="{{ path ('app_creation_exercice')}}">Enregistrer un nouvel exercice</a>
     <a href="{{ path ('app_liste_patients' )}}">Listes Patients</a> 
     <a href="">Attribuer des Exercices</a>
 
