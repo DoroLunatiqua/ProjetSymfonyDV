@@ -3,6 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<a href="{{ path ('app_accueil' )}}">Acceuil</a>
     <h1>Enregistrez-vous</h1>
 
     {{ form_errors(registrationForm) }}
@@ -19,4 +20,6 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+
+
 {% endblock %}

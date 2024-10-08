@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Exercice;
+use App\Entity\Patient;
 use App\Form\CreationExerciceType;
 use App\Repository\ExerciceRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,4 +46,25 @@ class ExerciceController extends AbstractController
             'formexercice' => $formexercice,
         ]);
     }
+
+
+    
+    #[Route('/exercice/attribuer/{id}', name: 'exercice_attribuer')]
+    public function exerciceAttribuer(ExerciceRepository $rep, Patient $patient): Response
+    {
+        
+        $exercices = $rep->findAll();
+        $vars = ['exercices' => $exercices, 'patient'=> $patient];
+
+        return $this->render('patient/exercicesPatient.html.twig', $vars);
+
+        
+        // afficher une page qui contient:
+        // - tous les exos attribues
+        // - tous les exercices possibles
+
+
+
+    }
+
 }

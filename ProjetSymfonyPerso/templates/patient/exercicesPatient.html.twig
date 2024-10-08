@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'Exercices{% endblock %}
+
+{% block body %}
+<a href="{{ path ('app_accueil' )}}">Accueil</a>
+
+<ul>
+{% for exercice in exercices %}
+<li>
+{{ exercice.nom}}
+</li>
+
+    
+{% endfor %}
+</ul>
+<h1>{{patient.nom}}</h1>
+
+
+{% endblock %}

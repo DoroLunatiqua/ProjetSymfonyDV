@@ -7,9 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ListePatientsController extends AbstractController
+class PatientsController extends AbstractController
 {
-    #[Route('/liste/patients', name: 'app_liste_patients')]
+    #[Route('/patient/liste', name: 'app_liste_patients')]
     public function index(PatientRepository $rep): Response
     {
         $medecin = $this->getUser();
@@ -17,7 +17,7 @@ class ListePatientsController extends AbstractController
         $patients = $medecin->getPatients();
 
 
-        return $this->render('liste_patients/index.html.twig', [
+        return $this->render('patient/liste.html.twig', [
             "patients" => $patients
         ]);
     }
