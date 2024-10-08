@@ -15,7 +15,7 @@ class ExerciceFixtures extends Fixture
         
 
 
-        for ($i = 0; $i < 10 ; $i++){
+        for ($i = 0; $i < 20 ; $i++){
             $exercice = new Exercice();
             $exercice->setThemeExo(ThemeExo::cases()[rand(0,3)]);
             $exercice->setReponse($faker->sentence());
@@ -23,10 +23,10 @@ class ExerciceFixtures extends Fixture
             $exercice->setNom($faker->word());
 
             $manager->persist($exercice);
-            // $this->addReference("exercice$i", $exercice);
+            $this->addReference("exercice$i", $exercice);
         }
         $manager->flush();
     }
 
-    
+
 }

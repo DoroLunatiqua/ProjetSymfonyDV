@@ -35,7 +35,7 @@ class PatientFixtures extends Fixture implements DependentFixtureInterface
             
             
             $manager->persist ($user);
-            $this->addReference("patient$i", $user);
+            $this->addReference("patient" . $i, $user);
         }
 
 

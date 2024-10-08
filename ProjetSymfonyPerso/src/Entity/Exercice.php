@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\ThemeExo;
 use App\Repository\ExerciceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExerciceRepository::class)]
@@ -26,6 +28,22 @@ class Exercice
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
+
+    #[ORM\ManyToOne(inversedBy: 'listeExercices')]
+    private ?RealisationExoPatient $realisationExoPatient = null;
+
+    // liste de patients qui sont censés de réaliser cet exercice
+    
+    /**
+     * @var Collection<int, Patient>
+     */
+    #[ORM\ManyToMany(targetEntity: Patient::class, mappedBy: 'exercicesAssignes')]
+    private Collection $patients;
+
+    public function __construct()
+    {
+        $this->patients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -84,6 +102,45 @@ class Exercice
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getRealisationExoPatient(): ?RealisationExoPatient
+    {
+        return $this->realisationExoPatient;
+    }
+
+    public function setRealisationExoPatient(?RealisationExoPatient $realisationExoPatient): static
+    {
+        $this->realisationExoPatient = $realisationExoPatient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Patient>
+     */
+    public function getPatients(): Collection
+    {
+        return $this->patients;
+    }
+
+    public function addPatient(Patient $patient): static
+    {
+        if (!$this->patients->contains($patient)) {
+            $this->patients->add($patient);
+            $patient->addExercicesAssigne($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatient(Patient $patient): static
+    {
+        if ($this->patients->removeElement($patient)) {
+            $patient->removeExercicesAssigne($this);
+        }
 
         return $this;
     }
