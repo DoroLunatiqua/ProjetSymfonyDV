@@ -22,6 +22,45 @@ class PatientsController extends AbstractController
         ]);
     }
 
+    #[Route('/exercice/liste', name: 'app_liste_exercices')]
+    public function listeExos(PatientRepository $rep): Response
+    {
+        $patient = $this->getUser();
+        
+        $exercices = $patient->getExercicesAssignes();
+
+
+        return $this->render('patient/exerciceAssignePatient.html.twig', [
+            "exercices" => $exercices
+        ]);
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Code proposer par GPT apres relation faite entre realisationExoPatient et Patient pour creer un resultat
 //
 //     #[Route('/patient/{id}/add-exercice/{exerciceId}', name: 'patient_add_exercice')]
@@ -50,4 +89,4 @@ class PatientsController extends AbstractController
 //         return $this->redirectToRoute('patient_show', ['id' => $patient->getId()]);
 //     }
 // }
-}
+

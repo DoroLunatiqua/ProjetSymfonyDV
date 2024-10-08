@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercices{% endblock %}
+
+{% block body %}
+<a href="{{ path ('app_accueil' )}}">Accueil</a>
+
+Liste d'exercices qui vous sont assignés...:
+<ul>
+{% for exercice in exercices %}
+<li>
+{{ exercice.nom}}
+</li>
+
+    
+{% endfor %}
+</ul>
+
+{% endblock %}

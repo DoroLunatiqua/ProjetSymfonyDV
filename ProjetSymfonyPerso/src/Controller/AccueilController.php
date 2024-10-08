@@ -14,7 +14,7 @@ class AccueilController extends AbstractController
         // Vérification du rôle 'ROLE_PATIENT'
         if ($this->isGranted('ROLE_PATIENT')) {
             //creer page de vue patient avec exos?
-            return $this->redirectToRoute("app_patient_exos");
+            return $this->redirectToRoute("app_liste_exercices");
         }
 
         // // Vérification du rôle 'ROLE_MEDIC'
