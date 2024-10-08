@@ -5,6 +5,8 @@
 {% block body %}
 <h2>Créez Votre Exercice: </h2>
 {{form_start (formexercice)}}
+{{form_widget (formexercice)}}
+<input type="submit" value="Enregistrer">
 {{form_end (formexercice)}}
 
 {% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Exercice;
+use App\Enum\ThemeExo;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +16,9 @@ class CreationExerciceType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('theme', TextType::class)
+            ->add('themeExo', EnumType::class, [
+                'class' => ThemeExo::class
+            ])
             ->add('question', TextType::class)
             ->add('reponse', TextType::class)
         ;

@@ -17,21 +17,21 @@ class EnregistrementPatientController extends AbstractController
     public function index(Request $request, ManagerRegistry $doctrine): Response
     {
         $patient = new Patient();
-   $medecin = $this->getUser(); // Récupérer le médecin connecté
+        $medecin = $this->getUser(); // Récupérer le médecin connecté
 
-    $form = $this->createForm(EnregistrementPatientType::class, $patient);
-       // entre parenthèse le premier param:class de ton formulaire ici: PatientType , deuxieme param l'objet qui recoit les données du formulaire
-    $form->handleRequest($request);
+        $form = $this->createForm(EnregistrementPatientType::class, $patient);
+        // entre parenthèse le premier param:class de ton formulaire ici: PatientType , deuxieme param l'objet qui recoit les données du formulaire
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $patient->setMedecinT($medecin);
-        $patient->setRoles(["ROLE_PATIENT"]);
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($patient);
-        $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $patient->setMedecinT($medecin);
+            $patient->setRoles(["ROLE_PATIENT"]);
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($patient);
+            $entityManager->flush();
 
-        return $this->redirectToRoute('app_accueil'); // Redirection après succès
-    }
+            return $this->redirectToRoute('app_accueil'); // Redirection après succès
+        }
 
 
         return $this->render('enregistrement_patient/index.html.twig', [
@@ -39,4 +39,3 @@ class EnregistrementPatientController extends AbstractController
         ]);
     }
 }
-

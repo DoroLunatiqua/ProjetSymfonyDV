@@ -14,8 +14,7 @@ class Exercice
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $theme = null;
+  
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $question = null;
@@ -33,17 +32,7 @@ class Exercice
         return $this->id;
     }
 
-    public function getTheme(): ?string
-    {
-        return $this->theme;
-    }
 
-    public function setTheme(?string $theme): static
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
 
     public function getQuestion(): ?string
     {
