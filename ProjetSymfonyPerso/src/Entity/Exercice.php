@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ThemeExo;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,6 +22,8 @@ class Exercice
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reponse = null;
+    #[ORM\Column(type:"string", enumType:ThemeExo::class)]
+    private ThemeExo $themeExo;
 
     public function getId(): ?int
     {
@@ -59,6 +62,24 @@ class Exercice
     public function setReponse(?string $reponse): static
     {
         $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of themeExo
+     */
+    public function getThemeExo(): ThemeExo
+    {
+        return $this->themeExo;
+    }
+
+    /**
+     * Set the value of themeExo
+     */
+    public function setThemeExo(ThemeExo $themeExo): self
+    {
+        $this->themeExo = $themeExo;
 
         return $this;
     }
