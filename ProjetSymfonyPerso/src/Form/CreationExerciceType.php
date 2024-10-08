@@ -13,6 +13,7 @@ class CreationExerciceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('nom', TextType::class)
             ->add('theme', TextType::class)
             ->add('question', TextType::class)
             ->add('reponse', TextType::class)

@@ -20,6 +20,7 @@ class CreationExerciceFixtures extends Fixture
             $exercice->setThemeExo(ThemeExo::cases()[rand(0,3)]);
             $exercice->setReponse($faker->sentence()."?");
             $exercice->setQuestion($faker->catchPhrase());
+            $exercice->setNom($faker->word());
 
             $manager->persist($exercice);
             // $this->addReference("exercice$i", $exercice);

@@ -25,6 +25,9 @@ class Exercice
     #[ORM\Column(type:"string", enumType:ThemeExo::class)]
     private ThemeExo $themeExo;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +83,18 @@ class Exercice
     public function setThemeExo(ThemeExo $themeExo): self
     {
         $this->themeExo = $themeExo;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }
