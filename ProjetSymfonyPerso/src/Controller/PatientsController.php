@@ -22,7 +22,7 @@ class PatientsController extends AbstractController
         ]);
     }
 
-    #[Route('/exercice/liste', name: 'app_liste_exercices')]
+    #[Route('/exercice/listeass', name: 'app_liste_exercices_a')]
     public function listeExos(PatientRepository $rep): Response
     {
         $patient = $this->getUser();
