@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Exercice;
 use App\Entity\Patient;
+use App\Entity\Exercice;
 use App\Form\CreationExerciceType;
 use App\Repository\ExerciceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExerciceController extends AbstractController
@@ -70,9 +72,48 @@ class ExerciceController extends AbstractController
         // afficher une page qui contient:
         // - tous les exos attribues
         // - tous les exercices possibles
+        // il faut donner la reference de l'exercice au patient indiqué lors du click
+        // Get the exercise reference
+        // $exercise = $this->getReference('exercice' . $randomExerciseIndex);
 
+        // // Add the exercise to the patient
+        // $patient->addExercicesAssigne($exercise);
 
 
     }
+    //  /**
+    //  * Cette méthode sert à assigner un exercice à un patient via une requête AJAX
+    // //  * 
+    // #[Route('/exercice/{id}/assigner', name: 'exercice_assigner', methods: ['POST'])]
+
+
+    // public function assignerExercice($id, Request $request, EntityManagerInterface $em): JsonResponse
+    // {
+    //     // Décoder le contenu JSON de la requête
+    //     $data = json_decode($request->getContent(), true);
+
+    //     // Récupérer l'exercice par son ID
+    //     $exercice = $em->getRepository(Exercice::class)->find($id);
+    //     if (!$exercice) {
+    //         return new JsonResponse(['status' => 'Exercice non trouvé'], 404);
+    //     }
+
+    //     // Récupérer le patient par son ID 
+    //     $patientId = $data['patient_id'];
+    //     $patient = $em->getRepository(Patient::class)->find($patientId);
+    //     if (!$patient) {
+    //         return new JsonResponse(['status' => 'Patient non trouvé'], 404);
+    //     }
+
+    //     // Lier l'exercice au patient (sans supprimer l'exercice)
+    //     $patient->addExerciceAssigne($exercice); 
+
+    //     // Sauvegarder les modifications
+    //     $em->persist($patient);
+    //     $em->flush();
+
+    //     // Répondre par un succès en JSON
+    //     return new JsonResponse(['status' => 'Exercice assigné avec succès']);
+    // }
 
 }

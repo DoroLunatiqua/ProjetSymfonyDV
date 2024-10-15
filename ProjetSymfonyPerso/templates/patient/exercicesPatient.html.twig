@@ -8,23 +8,23 @@
 
 
 
-    
+    <h2> Choisissez les exercices à attribuer à votre patient:</h2>
+    <h2>Votre patient: {{patient.nom}}</h2>
+
 
 </ul>
 <ul>
 {% for exercice in exercices %}
-<li>
+<li id="exercice-{{ exercice.id }}">
 {{ exercice.nom}}
+<button id="delete-btn"> Choisir </button>
 </li>
 
     
 {% endfor %}
 </ul>
 
-
-<h1>{{patient.nom}}</h1>
-
-<h2> Exercices déjà assignés:</h2>
+<h3> Exercices déjà assignés:</h3>
 <ul>
 {% for exerciceass in exercicesass %}
 <li>
