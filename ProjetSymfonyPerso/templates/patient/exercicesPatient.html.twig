@@ -5,6 +5,12 @@
 {% block body %}
 <a href="{{ path ('app_accueil' )}}">Accueil</a>
 
+
+
+
+    
+
+</ul>
 <ul>
 {% for exercice in exercices %}
 <li>
@@ -14,7 +20,17 @@
     
 {% endfor %}
 </ul>
+
+
 <h1>{{patient.nom}}</h1>
 
+<h2> Exercices déjà assignés:</h2>
+<ul>
+{% for exerciceass in exercicesass %}
+<li>
+{{ exerciceass.nom}}
+</li>
+
+{% endfor %}
 
 {% endblock %}

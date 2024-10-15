@@ -52,9 +52,17 @@ class ExerciceController extends AbstractController
     #[Route('/exercice/attribuer/{id}', name: 'exercice_attribuer')]
     public function exerciceAttribuer(ExerciceRepository $rep, Patient $patient): Response
     {
-        
+
+
+
+        //liste des exercices
         $exercices = $rep->findAll();
-        $vars = ['exercices' => $exercices, 'patient'=> $patient];
+
+        //avoir les exercices assigné pour le  patient
+        $exercicesass=$patient->getExercicesAssignes();
+
+        //variable pour envoyé a la vue
+        $vars = ['exercices' => $exercices, 'patient'=> $patient,'exercicesass' =>$exercicesass];
 
         return $this->render('patient/exercicesPatient.html.twig', $vars);
 
