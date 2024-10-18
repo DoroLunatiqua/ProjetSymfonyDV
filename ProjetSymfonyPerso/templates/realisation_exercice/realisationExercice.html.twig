@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réalisation de l'exercice{% endblock %}
+
+{% block body %}
+{{form_start (formresultat)}}
+{{form_widget (formresultat)}}
+<input type="submit" value="Enregistrer">
+{{form_end (formresultat)}}
+
+
+{% endblock %}

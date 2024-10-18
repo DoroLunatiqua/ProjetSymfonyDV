@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Patient;
 use App\Entity\Exercice;
+use App\Entity\RealisationExoPatient;
 use App\Form\CreationExerciceType;
 use App\Repository\ExerciceRepository;
 use App\Repository\PatientRepository;
@@ -76,10 +77,6 @@ class ExerciceController extends AbstractController
         // il faut donner la reference de l'exercice au patient indiqué lors du click
         // Get the exercise reference
         // $exercise = $this->getReference('exercice' . $randomExerciseIndex);
-
-        // // Add the exercise to the patient
-        // $patient->addExercicesAssigne($exercise);
-
     }
 
     #[Route('/exercice/attribuer/{patientId}/{exerciceId}', name:'exercice_attribuer_action')]
@@ -98,39 +95,63 @@ class ExerciceController extends AbstractController
     }
 
 
-    //  /**
-    //  * Cette méthode sert à assigner un exercice à un patient via une requête AJAX
-    // //  * 
-    // #[Route('/exercice/{id}/assigner', name: 'exercice_assigner', methods: ['POST'])]
 
+//lorsque le patient click sur l'exercice celui ci renvoit son id et va vers cette route:
+    #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
+    public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
+    {
+        $resultat = new RealisationExoPatient();
+        $formresultat = $this->createForm(CreationExerciceType::class, $resultat);
+        $formresultat->handleRequest($request);
 
-    // public function assignerExercice($id, Request $request, EntityManagerInterface $em): JsonResponse
+    //     //trouver le moyen d'afficher les questions de la BD en rapport avec l'exo dont l'id est dans la route
+
+        if($formresultat->isSubmitted() && $formresultat->isValid()){
+        
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($resultat);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_liste_exercices');
+        }
+
+        return $this->render('realisation_exercice/realisationExercice.html.twig', [
+            'formresultat' => $formresultat,
+        ]);
+    }
+
+    ///A retravailler reponse chat gpt
+
+    // #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
+    // public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
     // {
-    //     // Décoder le contenu JSON de la requête
-    //     $data = json_decode($request->getContent(), true);
+    //     $entityManager = $doctrine->getManager();
 
-    //     // Récupérer l'exercice par son ID
-    //     $exercice = $em->getRepository(Exercice::class)->find($id);
+    //     // Récupérer l'exercice et les questions associées
+    //     $exercice = $entityManager->getRepository(Exercice::class)->find($exerciceId);
+
     //     if (!$exercice) {
-    //         return new JsonResponse(['status' => 'Exercice non trouvé'], 404);
+    //         throw $this->createNotFoundException('Exercice non trouvé');
     //     }
 
-    //     // Récupérer le patient par son ID 
-    //     $patientId = $data['patient_id'];
-    //     $patient = $em->getRepository(Patient::class)->find($patientId);
-    //     if (!$patient) {
-    //         return new JsonResponse(['status' => 'Patient non trouvé'], 404);
+    //     // Récupérer les questions depuis la propriété de l'exercice
+    //     $questions = $exercice->getQuestion();
+
+    //     // Créer et gérer le formulaire pour la réalisation
+    //     $resultat = new RealisationExoPatient();
+    //     $formresultat = $this->createForm(CreationExerciceType::class, $resultat);
+    //     $formresultat->handleRequest($request);
+
+    //     if ($formresultat->isSubmitted() && $formresultat->isValid()) {
+    //         $entityManager->persist($resultat);
+    //         $entityManager->flush();
+
+    //         return $this->redirectToRoute('app_liste_exercices');
     //     }
 
-    //     // Lier l'exercice au patient (sans supprimer l'exercice)
-    //     $patient->addExerciceAssigne($exercice); 
-
-    //     // Sauvegarder les modifications
-    //     $em->persist($patient);
-    //     $em->flush();
-
-    //     // Répondre par un succès en JSON
-    //     return new JsonResponse(['status' => 'Exercice assigné avec succès']);
+    //     return $this->render('realisation_exercice/realisationExercice.html.twig', [
+    //         'formresultat' => $formresultat->createView(),
+    //         'questions' => $questions,  // Passer les questions à la vue
+    //         'exercice' => $exercice      // Optionnel, si besoin dans la vue
+    //     ]);
     // }
-
 }

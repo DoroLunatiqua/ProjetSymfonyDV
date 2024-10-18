@@ -20,7 +20,7 @@ class CreationExerciceType extends AbstractType
                 'class' => ThemeExo::class
             ])
             ->add('question', TextType::class)
-            ->add('reponse', TextType::class)
+            // ->add('reponse', TextType::class)
         ;
     }
 
