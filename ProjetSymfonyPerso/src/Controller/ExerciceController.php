@@ -6,6 +6,7 @@ use App\Entity\Patient;
 use App\Entity\Exercice;
 use App\Form\CreationExerciceType;
 use App\Repository\ExerciceRepository;
+use App\Repository\PatientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,7 +69,7 @@ class ExerciceController extends AbstractController
 
         return $this->render('patient/exercicesPatient.html.twig', $vars);
 
-        
+
         // afficher une page qui contient:
         // - tous les exos attribues
         // - tous les exercices possibles
@@ -79,8 +80,24 @@ class ExerciceController extends AbstractController
         // // Add the exercise to the patient
         // $patient->addExercicesAssigne($exercise);
 
-
     }
+
+    #[Route('/exercice/attribuer/{patientId}/{exerciceId}', name:'exercice_attribuer_action')]
+    public function exerciceAttribuerAction(PatientRepository $rep, int $patientId, ExerciceRepository $rep2, int $exerciceId, ManagerRegistry $doctrine){
+        
+        $patient= $rep->find($patientId);
+        // dd($patient);
+        $exercice= $rep2->find($exerciceId);
+        $patient->addExercicesAssigne($exercice);
+        
+        $em=$doctrine->getManager();
+        // $em->persist($patient);
+        $em->flush();
+
+        return $this->redirectToRoute('exercice_attribuer', ['id'=>$patientId]);
+    }
+
+
     //  /**
     //  * Cette méthode sert à assigner un exercice à un patient via une requête AJAX
     // //  * 

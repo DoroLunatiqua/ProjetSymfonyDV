@@ -12,13 +12,19 @@
     <h2>Votre patient: {{patient.nom}}</h2>
 
 
+
+
 </ul>
-<ul>
+
+<ul id="exercicesContainer" data-patientId={{patient.id}}>
 {% for exercice in exercices %}
-<li id="exercice-{{ exercice.id }}">
+{% if exercice not in exercicesass %}
+
+<li class= "exercices" id="exercice-{{ exercice.id }}">
 {{ exercice.nom}}
-<button id="delete-btn"> Choisir </button>
+<button class="delete-btn"> Assigner </button>
 </li>
+{% endif %}
 
     
 {% endfor %}
