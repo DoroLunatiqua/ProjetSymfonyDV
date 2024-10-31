@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Patient;
 use App\Entity\Exercice;
-use App\Entity\RealisationExoPatient;
 use App\Form\CreationExerciceType;
-use App\Repository\ExerciceRepository;
+use App\Entity\RealisationExoPatient;
+use App\Form\RealisationExerciceType;
 use App\Repository\PatientRepository;
+use App\Repository\ExerciceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,62 +97,100 @@ class ExerciceController extends AbstractController
 
 
 
-//lorsque le patient click sur l'exercice celui ci renvoit son id et va vers cette route:
-    #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
-    public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
-    {
-        $resultat = new RealisationExoPatient();
-        $formresultat = $this->createForm(CreationExerciceType::class, $resultat);
-        $formresultat->handleRequest($request);
+// //lorsque le patient click sur l'exercice celui ci renvoit son id et va vers cette route:
+//     #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
+//     public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
+//     {
+//         $resultat = new RealisationExoPatient();
+//         $formresultat = $this->createForm(CreationExerciceType::class, $resultat);
+//         $formresultat->handleRequest($request);
 
-    //     //trouver le moyen d'afficher les questions de la BD en rapport avec l'exo dont l'id est dans la route
+//     //     //trouver le moyen d'afficher les questions de la BD en rapport avec l'exo dont l'id est dans la route
 
-        if($formresultat->isSubmitted() && $formresultat->isValid()){
+//         if($formresultat->isSubmitted() && $formresultat->isValid()){
         
-            $entityManager = $doctrine->getManager();
-            $entityManager->persist($resultat);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_liste_exercices');
-        }
+//             $entityManager = $doctrine->getManager();
+//             $entityManager->persist($resultat);
+//             $entityManager->flush();
+//             return $this->redirectToRoute('app_liste_exercices');
+//         }
 
-        return $this->render('realisation_exercice/realisationExercice.html.twig', [
-            'formresultat' => $formresultat,
-        ]);
-    }
+//         return $this->render('realisation_exercice/realisationExercice.html.twig', [
+//             'formresultat' => $formresultat,
+//         ]);
+//     }
 
-    ///A retravailler reponse chat gpt
-
+    
     // #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
     // public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
     // {
-    //     $entityManager = $doctrine->getManager();
-
-    //     // Récupérer l'exercice et les questions associées
-    //     $exercice = $entityManager->getRepository(Exercice::class)->find($exerciceId);
-
-    //     if (!$exercice) {
-    //         throw $this->createNotFoundException('Exercice non trouvé');
-    //     }
-
-    //     // Récupérer les questions depuis la propriété de l'exercice
-    //     $questions = $exercice->getQuestion();
-
-    //     // Créer et gérer le formulaire pour la réalisation
     //     $resultat = new RealisationExoPatient();
-    //     $formresultat = $this->createForm(CreationExerciceType::class, $resultat);
+    
+    //     // Récupérer l'exercice avec ses questions associées
+    //     $exercice = $doctrine->getRepository(Exercice::class)->find($exerciceId);
+    //     if (!$exercice) {
+    //         throw $this->createNotFoundException("L'exercice demandé n'existe pas.");
+    //     }
+        
+    
+    //     $realisationExoPatient = new RealisationExoPatient();
+    //     $realisationExoPatient->setQuestion($exercice->getQuestion()); // Définit la question
+    //     $realisationExoPatient->setDate(new \DateTime());
+        
+    //     $formresultat = $this->createForm(RealisationExerciceType::class, $realisationExoPatient);  
     //     $formresultat->handleRequest($request);
-
+    
     //     if ($formresultat->isSubmitted() && $formresultat->isValid()) {
+    //         $entityManager = $doctrine->getManager();
     //         $entityManager->persist($resultat);
     //         $entityManager->flush();
-
     //         return $this->redirectToRoute('app_liste_exercices');
     //     }
-
+    
     //     return $this->render('realisation_exercice/realisationExercice.html.twig', [
     //         'formresultat' => $formresultat->createView(),
-    //         'questions' => $questions,  // Passer les questions à la vue
-    //         'exercice' => $exercice      // Optionnel, si besoin dans la vue
     //     ]);
     // }
+
+    #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
+public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
+{
+    // Récupérer l'exercice avec ses questions associées
+    $exercice = $doctrine->getRepository(Exercice::class)->find($exerciceId);
+    if (!$exercice) {
+        throw $this->createNotFoundException("L'exercice demandé n'existe pas.");
+    }
+
+    // Créer une nouvelle instance de RealisationExoPatient
+    $realisationExoPatient = new RealisationExoPatient();
+    $realisationExoPatient->setQuestion($exercice->getQuestion()); // Définit la question
+
+    // Obtenir l'utilisateur connecté (patient)
+    $currentPatient = $this->getUser(); // Assurez-vous que cela renvoie l'entité Patient
+    if ($currentPatient) {
+        $realisationExoPatient->setPatient($currentPatient); // Ajoute l'ID du patient connecté
+    } else {
+        throw $this->createAccessDeniedException("Vous devez être connecté pour soumettre ce formulaire.");
+    }
+
+    // Créer le formulaire
+    $formresultat = $this->createForm(RealisationExerciceType::class, $realisationExoPatient);  
+    $formresultat->handleRequest($request);
+
+    if ($formresultat->isSubmitted() && $formresultat->isValid()) {
+        // Définir la date actuelle
+        $realisationExoPatient->setDate(new \DateTime());
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($realisationExoPatient); // Persiste l'instance unique
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_liste_exercices_a');
+    }
+
+    return $this->render('realisation_exercice/realisationExercice.html.twig', [
+        'formresultat' => $formresultat->createView(),
+    ]);
+}
+    
 }

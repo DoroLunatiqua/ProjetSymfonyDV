@@ -34,6 +34,9 @@ class RealisationExoPatient
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'realisationExoPatient')]
     private Collection $listeExercices;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question = null;
+
     public function __construct()
     {
         $this->listeExercices = new ArrayCollection();
@@ -118,6 +121,18 @@ class RealisationExoPatient
                 $listeExercice->setRealisationExoPatient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQuestion(): ?string
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?string $question): static
+    {
+        $this->question = $question;
 
         return $this;
     }
