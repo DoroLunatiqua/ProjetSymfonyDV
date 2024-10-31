@@ -10,7 +10,12 @@ Liste d'exercices qui vous sont assignés...:
 {% for exercice in exercices %}
 <li>
 {{ exercice.nom}}
-<button class="exercice-btn"> Commencer </button>
+<form action="{{ path('app_realisation_exercice', {'exerciceId': exercice.id}) }}" method="get">
+    <button type="submit" class="btn btn-primary">Commencer l'exercice</button>
+</form>
+{# <a href="{{ path('app_realisation_exercice', {'exerciceId': exercice.id}) }}" class="btn btn-primary">
+    Commencer l'exercice
+</a> #}
 </li>
 
     
