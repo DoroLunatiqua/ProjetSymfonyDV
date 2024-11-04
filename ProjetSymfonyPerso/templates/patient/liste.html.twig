@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Liste de vos Patients{% endblock %}
 
@@ -10,7 +10,7 @@
 {{ patient.nom}}
 {# <a href="{{ path ('fiche_patient') }}">Fiche</a> #}
 {# <a href="{{ path ('resultat') }}">Résultats</a> #}
-<a href="{{ path ('exercice_attribuer' , {id: patient.id}) }}">Attribuer Exercices</a>
+{# <a href="{{ path ('exercice_attribuer' , {id: patient.id}) }}">Attribuer Exercices</a>
 
 </li>
 
@@ -18,4 +18,25 @@
 {% endfor %}
 </ul>
 
+{% endblock %} #} 
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de vos Patients{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+    <h1 class="page-title">Liste de vos Patients</h1>
+
+    <ul class="patient-list">
+        {% for patient in patients %}
+            <li class="patient-item">
+                <span class="patient-name">{{ patient.nom }}</span>
+                <a href="{{ path('exercice_attribuer', {id: patient.id}) }}" class="btn assign-btn">Attribuer Exercices</a>
+            </li>
+        {% endfor %}
+    </ul>
+     <a href="{{ path('app_enregistrement_patient') }}" class="action-link">Enregister un nouveau patient</a>
+</div>
 {% endblock %}
+

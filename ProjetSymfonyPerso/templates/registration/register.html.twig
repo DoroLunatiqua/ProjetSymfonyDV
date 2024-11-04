@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
@@ -16,10 +16,35 @@
             label: 'Password'
         }) }}
         
-        
+        {{ form_row(registrationForm.inami) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
 
 
+{% endblock %} #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="main-title">Enregistrez-vous</h1>
+
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm, {'attr': {'class': 'registration-form'}}) }}
+        {{ form_row(registrationForm.nom) }}
+        {{ form_row(registrationForm.prenom) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.inami) }}
+        
+        <button type="submit" class="action-register">Register</button>
+    {{ form_end(registrationForm) }}
+</div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Liste d'Exercices{% endblock %}
 
@@ -39,4 +39,38 @@
 
 {% endfor %}
 
+{% endblock %} #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'Exercices{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+
+    <h1 class="page-title">Liste d'Exercices</h1>
+
+    <div class="patient-info">
+        <h2>Patient : {{ patient.nom }}</h2>
+    </div>
+
+    <h3>Choisissez les exercices à attribuer :</h3>
+    <ul id="exercicesContainer" data-patientId={{ patient.id }} class="exercise-list">
+        {% for exercice in exercices %}
+            {% if exercice not in exercicesass %}
+                <li class="exercise-item" id="exercice-{{ exercice.id }}">
+                    <span class="exercise-name">{{ exercice.nom }}</span>
+                    <button class="assign-btn">Assigner</button>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h3>Exercices déjà assignés :</h3>
+    <ul class="assigned-exercise-list">
+        {% for exerciceass in exercicesass %}
+            <li class="assigned-exercise-item">{{ exerciceass.nom }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

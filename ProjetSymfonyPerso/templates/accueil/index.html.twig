@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Accueil!{% endblock %}
 
@@ -34,5 +34,33 @@
 
 
 
+</div>
+{% endblock %} #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="main-title">Bienvenue sur le site d'exercice pour personnes aphasiques</h1>
+
+    <div class="links-wrapper">
+        {% if is_granted('ROLE_MEDIC') %}
+            
+           
+            <a href="{{ path('app_liste_exercices') }}" class="action-link">Exercices</a>
+            
+            <a href="{{ path('app_liste_patients') }}" class="action-link">Patients</a>
+        
+        {% elseif is_granted('ROLE_PATIENT') %}
+            <h2 class="role-title">Bonjour, je suis un patient</h2>
+        
+        {% else %}
+            <h2 class="role-title">Connexion</h2>
+            <a href="{{ path('app_login') }}" class="action-link">Connexion Professionnel</a>
+            <a href="{{ path('app_login') }}" class="action-link">Connexion Patient</a>
+            
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

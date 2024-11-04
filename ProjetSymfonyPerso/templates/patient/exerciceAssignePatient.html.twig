@@ -1,25 +1,48 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Exercices{% endblock %}
 
 {% block body %}
 {# <a href="{{ path ('app_accueil' )}}">Accueil</a> #}
-
+{# 
 Liste d'exercices qui vous sont assignés...:
 <ul>
 {% for exercice in exercices %}
 <li>
 {{ exercice.nom}}
 <form action="{{ path('app_realisation_exercice', {'exerciceId': exercice.id}) }}" method="get">
-    <button type="submit" class="btn btn-primary">Commencer l'exercice</button>
+    <button type="submit" class="btn ">Commencer l'exercice</button>
 </form>
 {# <a href="{{ path('app_realisation_exercice', {'exerciceId': exercice.id}) }}" class="btn btn-primary">
     Commencer l'exercice
 </a> #}
-</li>
+{# </li> #}
 
     
-{% endfor %}
+{# {% endfor %}
 </ul>
 
+{% endblock %}  #} 
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercices{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="page-title">Exercices Assignés</h1>
+    <p>Liste des exercices qui vous sont assignés :</p>
+
+    <ul class="exercise-list">
+        {% for exercice in exercices %}
+            <li class="exercise-item">
+                <span class="exercise-name">{{ exercice.nom }}</span>
+                <form action="{{ path('app_realisation_exercice', {'exerciceId': exercice.id}) }}" method="get" class="exercise-form">
+                    <button type="submit" class="btn start-btn">Commencer l'exercice</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
+
