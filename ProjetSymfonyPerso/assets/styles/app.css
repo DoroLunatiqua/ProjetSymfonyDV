@@ -117,16 +117,6 @@ h1, h2, h3,h4 {
     margin: 20px 0;
 }
 
-.exercise-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #ECF0F1;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* Nom de l'exercice */
 .exercise-name {
@@ -246,7 +236,7 @@ h1, h2, h3,h4 {
 }
 /* Liens d'actions */
 .action-link {
-    background-color: #F5F5F5;
+    background-color: #add3d0;
     color: #2C3E50;
     padding: 10px 20px;
     border-radius: 5px;

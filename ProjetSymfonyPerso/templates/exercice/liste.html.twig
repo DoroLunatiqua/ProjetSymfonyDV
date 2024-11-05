@@ -1,21 +1,4 @@
-{# {% extends 'base.html.twig' %}
 
-{% block title %}Liste d'Exercices{% endblock %}
-
-{% block body %}
-
-<ul>
-{% for exercice in exercices %}
-<li>
-{{ exercice.nom}}
-</li>
-
-    
-{% endfor %}
-</ul>
-<a href="{{ path ('app_accueil' )}}">Accueil</a>
-
-{% endblock %} #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste d'Exercices{% endblock %}
@@ -25,13 +8,15 @@
     <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
 
     <h1 class="page-title">Liste des Exercices</h1>
-    <a href="{{ path('app_creation_exercice') }}" class="action-exo">Enregistrer un nouvel exercice</a>
+    <a href="{{ path('app_creation_exercice') }}" class="action-link">Enregistrer un nouvel exercice</a>
 
     <ul class="exercise-list">
         {% for exercice in exercices %}
+            <a href="{{ path('afficher_exercice', {'exerciceId': exercice.id})}}">
             <li class="exercise-item">
-                <a href="{{ path('afficher_exercice', {'exerciceId': exercice.id})}}"><span class="exercise-name">{{ exercice.nom }}</span></a>
+                <class="exercise-name">{{ exercice.nom }}
             </li>
+            </a>
         {% endfor %}
     </ul>
     
