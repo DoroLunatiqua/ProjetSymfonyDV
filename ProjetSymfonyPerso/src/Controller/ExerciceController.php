@@ -10,6 +10,7 @@ use App\Form\RealisationExerciceType;
 use App\Repository\PatientRepository;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,12 +73,6 @@ class ExerciceController extends AbstractController
         return $this->render('patient/exercicesPatient.html.twig', $vars);
 
 
-        // afficher une page qui contient:
-        // - tous les exos attribues
-        // - tous les exercices possibles
-        // il faut donner la reference de l'exercice au patient indiqué lors du click
-        // Get the exercise reference
-        // $exercise = $this->getReference('exercice' . $randomExerciseIndex);
     }
 
     #[Route('/exercice/attribuer/{patientId}/{exerciceId}', name:'exercice_attribuer_action')]
@@ -108,8 +103,56 @@ class ExerciceController extends AbstractController
     }
 
 
+    #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
+    public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
+    {
+        // Récupérer l'exercice avec ses questions associées
+        $exercice = $doctrine->getRepository(Exercice::class)->find($exerciceId);
+        if (!$exercice) {
+            throw $this->createNotFoundException("L'exercice demandé n'existe pas.");
+        }
+
+        // Créer une nouvelle instance de RealisationExoPatient
+        $realisationExoPatient = new RealisationExoPatient();
+        $realisationExoPatient->setQuestion($exercice->getQuestion()); // Définit la question
+
+        // Obtenir l'utilisateur connecté (patient)
+        $currentPatient = $this->getUser(); //entité Patient
+        if ($currentPatient) {
+            $realisationExoPatient->setPatient($currentPatient); // Ajoute l'ID du patient connecté
+        } else {
+            throw $this->createAccessDeniedException("Vous devez être connecté pour soumettre ce formulaire.");
+        }
+
+        // Créer le formulaire
+        $formresultat = $this->createForm(RealisationExerciceType::class, $realisationExoPatient);  
+        $formresultat->handleRequest($request);
+
+        if ($formresultat->isSubmitted() && $formresultat->isValid()) {
+            // Définir la date actuelle
+            $realisationExoPatient->setDate(new \DateTime());
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($realisationExoPatient); 
+            $entityManager->flush();
+
+            // Supprimer l'exercice des exercices assignés du patient
+        $currentPatient->removeExercicesAssigne($exercice);
+        $entityManager->flush(); // Sauvegarder les changements
+
+            return $this->redirectToRoute('app_liste_exercices_a');
+        }
+
+        return $this->render('realisation_exercice/realisationExercice.html.twig', [
+            'formresultat' => $formresultat->createView(),
+        ]);
+    }
 
 
+}
+
+
+//////////////////////////ESSAI CODE ///////////////////////
 // //lorsque le patient click sur l'exercice celui ci renvoit son id et va vers cette route:
 //     #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
 //     public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
@@ -164,46 +207,3 @@ class ExerciceController extends AbstractController
     //         'formresultat' => $formresultat->createView(),
     //     ]);
     // }
-
-    #[Route('/exercice/realisation/{exerciceId}', name: 'app_realisation_exercice')]
-public function exerciceRealisation(Request $request, ManagerRegistry $doctrine, int $exerciceId): Response
-{
-    // Récupérer l'exercice avec ses questions associées
-    $exercice = $doctrine->getRepository(Exercice::class)->find($exerciceId);
-    if (!$exercice) {
-        throw $this->createNotFoundException("L'exercice demandé n'existe pas.");
-    }
-
-    // Créer une nouvelle instance de RealisationExoPatient
-    $realisationExoPatient = new RealisationExoPatient();
-    $realisationExoPatient->setQuestion($exercice->getQuestion()); // Définit la question
-
-    // Obtenir l'utilisateur connecté (patient)
-    $currentPatient = $this->getUser(); // Assurez-vous que cela renvoie l'entité Patient
-    if ($currentPatient) {
-        $realisationExoPatient->setPatient($currentPatient); // Ajoute l'ID du patient connecté
-    } else {
-        throw $this->createAccessDeniedException("Vous devez être connecté pour soumettre ce formulaire.");
-    }
-
-    // Créer le formulaire
-    $formresultat = $this->createForm(RealisationExerciceType::class, $realisationExoPatient);  
-    $formresultat->handleRequest($request);
-
-    if ($formresultat->isSubmitted() && $formresultat->isValid()) {
-        // Définir la date actuelle
-        $realisationExoPatient->setDate(new \DateTime());
-
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($realisationExoPatient); // Persiste l'instance unique
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_liste_exercices_a');
-    }
-
-    return $this->render('realisation_exercice/realisationExercice.html.twig', [
-        'formresultat' => $formresultat->createView(),
-    ]);
-}
-    
-}

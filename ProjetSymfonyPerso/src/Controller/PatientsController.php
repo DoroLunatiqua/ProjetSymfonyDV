@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Repository\PatientRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ExerciceRepository;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PatientsController extends AbstractController
 {
@@ -34,6 +36,12 @@ class PatientsController extends AbstractController
             "exercices" => $exercices
         ]);
 
+    }
+
+    #[Route('/exercice/supprimer/fait/{exerciceId}', name: 'exercice_supprimer_fait')]
+    public function supprimerExoFait(PatientRepository $rep): Response
+    {
+        $patient = $this->getUser();
     }
 
 }
