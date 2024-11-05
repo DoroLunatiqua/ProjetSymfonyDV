@@ -148,6 +148,18 @@ class ExerciceController extends AbstractController
         ]);
     }
 
+    #[Route('afficher/exercice/{exerciceId}', name: 'afficher_exercice')]
+public function afficherExercice(int $exerciceId, ExerciceRepository $rep)
+{
+    $exercice = $rep->find($exerciceId);
+    if (!$exercice) {
+        throw $this->createNotFoundException('Exercice non trouvé');
+    }
+
+    return $this->render('exercice/affichage.html.twig', [
+        'exercice' => $exercice,
+    ]);
+}
 
 }
 

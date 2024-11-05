@@ -30,7 +30,7 @@
     <ul class="exercise-list">
         {% for exercice in exercices %}
             <li class="exercise-item">
-                <span class="exercise-name">{{ exercice.nom }}</span>
+                <a href="{{ path('afficher_exercice', {'exerciceId': exercice.id})}}"><span class="exercise-name">{{ exercice.nom }}</span></a>
             </li>
         {% endfor %}
     </ul>

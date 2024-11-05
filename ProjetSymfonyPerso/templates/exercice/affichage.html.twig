@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'Exercices!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+    <a href=" {{ path('app_liste_exercices')}}"> Liste des Exercices</a>
+    <h2 class="page-title">Exercice: {{ exercice.nom }}</h2>
+
+    
+    <span class="exercise-name">{{ exercice.question }}</span>
+    
+    
+    
+
+
+</div>
+{% endblock %}

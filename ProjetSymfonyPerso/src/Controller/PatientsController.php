@@ -38,11 +38,6 @@ class PatientsController extends AbstractController
 
     }
 
-    #[Route('/exercice/supprimer/fait/{exerciceId}', name: 'exercice_supprimer_fait')]
-    public function supprimerExoFait(PatientRepository $rep): Response
-    {
-        $patient = $this->getUser();
-    }
 
 }
 
