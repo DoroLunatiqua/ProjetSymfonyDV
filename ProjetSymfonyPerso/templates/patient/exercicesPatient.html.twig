@@ -60,16 +60,19 @@
             {% if exercice not in exercicesass %}
                 <li class="exercise-item" id="exercice-{{ exercice.id }}">
                     <span class="exercise-name">{{ exercice.nom }}</span>
-                    <button class="assign-btn">Assigner</button>
+                    <a href="{{ path ('exercice_attribuer_action', {"patientId": patient.id, "exerciceId": exercice.id})}}"><button class="assign-btn">Assigner</button></a>
                 </li>
             {% endif %}
         {% endfor %}
     </ul>
+    <a href="{{ path('app_creation_exercice') }}" class="action-exo">Enregistrer un nouvel exercice</a>
 
     <h3>Exercices déjà assignés :</h3>
     <ul class="assigned-exercise-list">
         {% for exerciceass in exercicesass %}
-            <li class="assigned-exercise-item">{{ exerciceass.nom }}</li>
+            <li class="assigned-exercise-item">{{ exerciceass.nom }}
+                <a href="{{ path ('exercice_supprimer_patient', {"patientId": patient.id, "exerciceId": exerciceass.id})}}"><button class="assign-btn">Supprimer</button></a>
+                </li>
         {% endfor %}
     </ul>
 </div>

@@ -317,3 +317,15 @@ h1, h2, h3,h4 {
     background-color:  #62b3a9; 
     transform: scale(1.03); /* Légère augmentation au survol */
 }
+
+.action-exo {
+    background-color: #a7ccbd;
+    color: #2C3E50;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%; /* Prend toute la largeur pour un effet bouton */
+    max-width: 300px; /* Limite la largeur du bouton */
+    text-align: center; /* Centre le texte */
+}

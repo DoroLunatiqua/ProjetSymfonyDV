@@ -95,6 +95,19 @@ class ExerciceController extends AbstractController
         return $this->redirectToRoute('exercice_attribuer', ['id'=>$patientId]);
     }
 
+    #[Route('/exercice/supprimer/{patientId}/{exerciceId}', name:'exercice_supprimer_patient')]
+    public function exercicePatientSupprimer(PatientRepository $rep, int $patientId, ExerciceRepository $rep2, int $exerciceId, ManagerRegistry $doctrine): Response
+    {
+        $patient= $rep->find($patientId);
+        $exercice= $rep2->find($exerciceId);
+        $patient->removeExercicesAssigne($exercice);
+        $em=$doctrine->getManager();
+        $em->flush();
+
+        return $this->redirectToRoute('exercice_attribuer',['id'=>$patientId] );
+    }
+
+
 
 
 // //lorsque le patient click sur l'exercice celui ci renvoit son id et va vers cette route:

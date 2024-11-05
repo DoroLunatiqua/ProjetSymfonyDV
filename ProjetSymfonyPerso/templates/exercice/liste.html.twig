@@ -22,7 +22,10 @@
 
 {% block body %}
 <div class="container">
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+
     <h1 class="page-title">Liste des Exercices</h1>
+    <a href="{{ path('app_creation_exercice') }}" class="action-exo">Enregistrer un nouvel exercice</a>
 
     <ul class="exercise-list">
         {% for exercice in exercices %}
@@ -31,8 +34,8 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{{ path('app_creation_exercice') }}" class="action-link">Enregistrer un nouvel exercice</a>
+    
 
-    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+    
 </div>
 {% endblock %}
