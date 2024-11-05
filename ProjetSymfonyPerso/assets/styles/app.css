@@ -119,10 +119,11 @@ h1, h2, h3,h4 {
 
 
 /* Nom de l'exercice */
+
 .exercise-name {
     font-size: 18px;
     color: #2C3E50;
-}
+} 
 
 /* Formulaire pour le bouton */
 .exercise-form {
