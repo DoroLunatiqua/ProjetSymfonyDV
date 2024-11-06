@@ -1,4 +1,27 @@
+
 {% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
+    <h1 class="page-title">Enregistrement du Patient</h1>
+    
+    {{ form_errors(form) }}
+
+    {{ form_start(form, {'attr': {'class': 'registration-form'}}) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        
+    {{ form_end(form) }}
+        <button type="submit" class="action-register">Enregistrer</button>
+</div>
+{% endblock %}
+
+
+
+
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Enregistrement Patient{% endblock %}
 
@@ -16,6 +39,6 @@
 {# {{ form_widget (form.email)}} #}
 
 
-{{ form_end (form)}} 
+{# {{ form_end (form)}} 
 
-{% endblock %}
+{% endblock %} #} 
