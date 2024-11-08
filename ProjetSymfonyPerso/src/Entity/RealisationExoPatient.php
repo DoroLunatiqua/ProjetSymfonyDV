@@ -49,6 +49,18 @@ class RealisationExoPatient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $question5 = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resultat2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resultat3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resultat4 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resultat5 = null;
+
     public function __construct()
     {
         $this->listeExercices = new ArrayCollection();
@@ -152,4 +164,52 @@ class RealisationExoPatient
 
     public function getQuestion5(): ?string { return $this->question5; }
     public function setQuestion5(?string $question5): self { $this->question5 = $question5; return $this; }
+
+    public function getResultat2(): ?string
+    {
+        return $this->resultat2;
+    }
+
+    public function setResultat2(?string $resultat2): static
+    {
+        $this->resultat2 = $resultat2;
+
+        return $this;
+    }
+
+    public function getResultat3(): ?string
+    {
+        return $this->resultat3;
+    }
+
+    public function setResultat3(?string $resultat3): static
+    {
+        $this->resultat3 = $resultat3;
+
+        return $this;
+    }
+
+    public function getResultat4(): ?string
+    {
+        return $this->resultat4;
+    }
+
+    public function setResultat4(?string $resultat4): static
+    {
+        $this->resultat4 = $resultat4;
+
+        return $this;
+    }
+
+    public function getResultat5(): ?string
+    {
+        return $this->resultat5;
+    }
+
+    public function setResultat5(?string $resultat5): static
+    {
+        $this->resultat5 = $resultat5;
+
+        return $this;
+    }
 }

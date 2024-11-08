@@ -51,6 +51,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
         ->add('resultat', TextareaType::class, [
             'label' => 'Votre réponse', 
             'required' => true,
+        ])
+        ->add('resultat2', TextareaType::class, [
+            'label' => 'Votre réponse', 
+            'required' => true,
+        ])
+        ->add('resultat3', TextareaType::class, [
+            'label' => 'Votre réponse', 
+            'required' => true,
+        ])
+        ->add('resultat4', TextareaType::class, [
+            'label' => 'Votre réponse', 
+            'required' => true,
+        ])
+        ->add('resultat5', TextareaType::class, [
+            'label' => 'Votre réponse', 
+            'required' => true,
         ]);
     }
     public function configureOptions(OptionsResolver $resolver): void
