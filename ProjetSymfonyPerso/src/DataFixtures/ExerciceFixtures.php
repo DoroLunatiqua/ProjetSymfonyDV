@@ -21,6 +21,10 @@ class ExerciceFixtures extends Fixture
             $exercice->setReponse($faker->sentence());
             $exercice->setQuestion($faker->catchPhrase()."?");
             $exercice->setNom($faker->word());
+            $exercice->setQuestion2($faker->catchPhrase()."?");
+            $exercice->setQuestion3($faker->catchPhrase()."?");
+            $exercice->setQuestion4($faker->catchPhrase()."?");
+            $exercice->setQuestion5($faker->catchPhrase()."?");
 
             $manager->persist($exercice);
             $this->addReference("exercice$i", $exercice);

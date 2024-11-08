@@ -40,6 +40,18 @@ class Exercice
     #[ORM\ManyToMany(targetEntity: Patient::class, mappedBy: 'exercicesAssignes')]
     private Collection $patients;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question4 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question5 = null;
+
     public function __construct()
     {
         $this->patients = new ArrayCollection();
@@ -141,6 +153,54 @@ class Exercice
         if ($this->patients->removeElement($patient)) {
             $patient->removeExercicesAssigne($this);
         }
+
+        return $this;
+    }
+
+    public function getQuestion2(): ?string
+    {
+        return $this->question2;
+    }
+
+    public function setQuestion2(?string $question2): static
+    {
+        $this->question2 = $question2;
+
+        return $this;
+    }
+
+    public function getQuestion3(): ?string
+    {
+        return $this->question3;
+    }
+
+    public function setQuestion3(?string $question3): static
+    {
+        $this->question3 = $question3;
+
+        return $this;
+    }
+
+    public function getQuestion4(): ?string
+    {
+        return $this->question4;
+    }
+
+    public function setQuestion4(?string $question4): static
+    {
+        $this->question4 = $question4;
+
+        return $this;
+    }
+
+    public function getQuestion5(): ?string
+    {
+        return $this->question5;
+    }
+
+    public function setQuestion5(?string $question5): static
+    {
+        $this->question5 = $question5;
 
         return $this;
     }

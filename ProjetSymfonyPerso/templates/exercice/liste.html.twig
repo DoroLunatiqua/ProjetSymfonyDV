@@ -13,7 +13,7 @@
         {% for exercice in exercices %}
             <a href="{{ path('afficher_exercice', {'exerciceId': exercice.id})}}">
             <li class="exercise-item">
-                <class="exercise-name">{{ exercice.nom }}
+                <class="back-link">{{ exercice.nom }}
             </li>
             </a>
         {% endfor %}

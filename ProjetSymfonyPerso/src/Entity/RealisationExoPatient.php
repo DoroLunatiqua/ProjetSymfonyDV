@@ -37,6 +37,18 @@ class RealisationExoPatient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $question = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question4 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $question5 = null;
+
     public function __construct()
     {
         $this->listeExercices = new ArrayCollection();
@@ -125,15 +137,19 @@ class RealisationExoPatient
         return $this;
     }
 
-    public function getQuestion(): ?string
-    {
-        return $this->question;
-    }
+    // Getters et setters pour chaque question
+    public function getQuestion(): ?string { return $this->question; }
+    public function setQuestion(?string $question): self { $this->question = $question; return $this; }
 
-    public function setQuestion(?string $question): static
-    {
-        $this->question = $question;
+    public function getQuestion2(): ?string { return $this->question2; }
+    public function setQuestion2(?string $question2): self { $this->question2 = $question2; return $this; }
 
-        return $this;
-    }
+    public function getQuestion3(): ?string { return $this->question3; }
+    public function setQuestion3(?string $question3): self { $this->question3 = $question3; return $this; }
+
+    public function getQuestion4(): ?string { return $this->question4; }
+    public function setQuestion4(?string $question4): self { $this->question4 = $question4; return $this; }
+
+    public function getQuestion5(): ?string { return $this->question5; }
+    public function setQuestion5(?string $question5): self { $this->question5 = $question5; return $this; }
 }

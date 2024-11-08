@@ -115,7 +115,11 @@ class ExerciceController extends AbstractController
         // Créer une nouvelle instance de RealisationExoPatient
         $realisationExoPatient = new RealisationExoPatient();
         $realisationExoPatient->setQuestion($exercice->getQuestion()); // Définit la question
-
+        $realisationExoPatient->setQuestion2($exercice->getQuestion2());
+        $realisationExoPatient->setQuestion3($exercice->getQuestion3());
+        $realisationExoPatient->setQuestion4($exercice->getQuestion4());
+        $realisationExoPatient->setQuestion5($exercice->getQuestion5());
+        
         // Obtenir l'utilisateur connecté (patient)
         $currentPatient = $this->getUser(); //entité Patient
         if ($currentPatient) {

@@ -4,12 +4,16 @@
 
 {% block body %}
 <div class="container">
-    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a>
-    <a href=" {{ path('app_liste_exercices')}}"> Liste des Exercices</a>
+    <a href="{{ path('app_accueil') }}" class="back-link">← Accueil</a> 
+    <a href=" {{ path('app_liste_exercices')}}" class="back-link"> Liste des Exercices</a>
     <h2 class="page-title">Exercice: {{ exercice.nom }}</h2>
 
     
-    <span class="exercise-name">{{ exercice.question }}</span>
+    <h3 class="exercise-name">{{ exercice.question }}</h3>
+    <h3 class="exercise-name">{{ exercice.question2 }}</h3>
+    <h3 class="exercise-name">{{ exercice.question3 }}</h3>
+    <h3 class="exercise-name">{{ exercice.question4 }}</h3>
+    <h3 class="exercise-name">{{ exercice.question5 }}</h3>
     
     
     
