@@ -1,40 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réalisation de l'exercice{% endblock %}
 
 {% block body %}
+<h1>Réalisation de l'exercice</h1>
 
-    
-    {{ form_start(formresultat) }}
+{{ form_start(formresultat) }}
 
-    <div class="question-display">
-        <h4>{{ formresultat.vars.data.question }}</h4>  {# Affichage de la question avec un titre #}
+<div class="form-container">
+    <div class="question-block">
+        <h4>{{ formresultat.vars.data.question }}</h4>
+        {{ form_row(formresultat.resultat) }}
     </div>
-    <div class="question-display">
-        <h4>{{ formresultat.vars.data.question2 }}</h4>  
-    <div class="question-display">
-        <h4>{{ formresultat.vars.data.question3 }}</h4>  
-    <div class="question-display">
-        <h4>{{ formresultat.vars.data.question4 }}</h4>  
-    <div class="question-display">
-        <h4>{{ formresultat.vars.data.question5 }}</h4> 
+    
+    <div class="question-block">
+        <h4>{{ formresultat.vars.data.question2 }}</h4>
+        {{ form_row(formresultat.resultat2) }}
     </div>
 
+    <div class="question-block">
+        <h4>{{ formresultat.vars.data.question3 }}</h4>
+        {{ form_row(formresultat.resultat3) }}
+    </div>
 
+    <div class="question-block">
+        <h4>{{ formresultat.vars.data.question4 }}</h4>
+        {{ form_row(formresultat.resultat4) }}
+    </div>
 
-    {{ form_row(formresultat.resultat) }}  {# Champ pour la réponse #}
-    {{ form_row(formresultat.feedback) }}  {# Champ pour le feedback #}
-    
-    <button type="submit">Soumettre</button>
+    <div class="question-block">
+        <h4>{{ formresultat.vars.data.question5 }}</h4>
+        {{ form_row(formresultat.resultat5) }}
+    </div>
+
+    <div class="feedback-block">
+        <h4>Feedback</h4>
+        {{ form_row(formresultat.feedback) }}  <!-- Si vous avez un champ pour le feedback -->
+    </div>
+
+    <div class="submit-btn">
+        <button type="submit" class="btn">Soumettre</button>
+    </div>
+</div>
 
 {{ form_end(formresultat) }}
-
-    
-
-{# {{form_start (formresultat)}}
-{{form_widget (formresultat)}}
-<input type="submit" value="Enregistrer">
-{{form_end (formresultat)}}
- #}
-
 {% endblock %}
+
+

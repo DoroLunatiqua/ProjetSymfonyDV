@@ -43,10 +43,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
     {
         // Ajouter les champs habituels
         $builder
+
    
         ->add('feedback', TextareaType::class, [
             'label' => 'Feedback',
-            'required' => true,
+            'required' => false,
         ])
         ->add('resultat', TextareaType::class, [
             'label' => 'Votre réponse', 
