@@ -27,7 +27,12 @@ class EnregistrementPatientType extends AbstractType
                 'class' => Medecin::class,
                 'choice_label' => 'nom',
             ])
-            ->add('submit',SubmitType::class, ["label"=>"Enregistrer"])
+            ->add('submit',SubmitType::class, [
+                "label"=>"Enregistrer",
+                "attr" =>[
+                    "class" => "action-register"
+                    ]
+                ])
         ;
     }
 
